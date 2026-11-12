@@ -1,392 +1,283 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BlueHub / DPS — เว็บไซต์นำเสนอ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=8" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ระบบเครือข่ายคอมพิวเตอร์ วิทยาลัยอาชีวศึกษาขอนแก่น</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=Sarabun:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#eef2f4;--surface:#fff;--ink:#14262e;--mute:#566a73;--line:#cfdadf;--teal:#0f7b8a;--tealbg:#dcf0f2;--amber:#e0a526;--amberbg:#fbf0d3;--red:#b8442f;--redbg:#f8e1db;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1c22;--surface:#17282f;--ink:#e6eff2;--mute:#9bb0b8;--line:#2b434d;--teal:#4cc3d2;--tealbg:#12363d;--amber:#f0be4a;--amberbg:#3a2f12;--red:#f08a76;--redbg:#43211a}}
+:root[data-theme="dark"]{--bg:#0f1c22;--surface:#17282f;--ink:#e6eff2;--mute:#9bb0b8;--line:#2b434d;--teal:#4cc3d2;--tealbg:#12363d;--amber:#f0be4a;--amberbg:#3a2f12;--red:#f08a76;--redbg:#43211a}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',system-ui,sans-serif;font-size:17px;line-height:1.7}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:20}
+h1,h2,h3{font-family:'Prompt','Sarabun',sans-serif;line-height:1.3;margin:0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--surface);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 16px}
+nav a{color:var(--mute);text-decoration:none;padding:6px 12px;border-radius:6px;white-space:nowrap;font-weight:500}
+nav a:hover,nav a:focus-visible{background:var(--tealbg);color:var(--teal);outline:none}
+main{max-width:1040px;margin:0 auto;padding:0 20px 64px}
+section{padding-top:56px}
+h2{font-size:1.7rem;margin-bottom:8px}
+.lead{color:var(--mute);margin:0 0 24px;max-width:62ch}
+.hero{padding-top:48px}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;max-width:18ch}
+.hero p{color:var(--mute);max-width:60ch;margin:14px 0 28px}
+.diagram{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;overflow-x:auto}
+.diagram svg{display:block;min-width:640px;width:100%;height:auto}
+.diagram text{font-family:'Sarabun',sans-serif;fill:var(--ink)}
+.box{fill:var(--surface);stroke:var(--teal);stroke-width:2}
+.dmz{fill:var(--redbg);stroke:var(--red);stroke-width:2}
+.lan{fill:var(--tealbg);stroke:var(--teal);stroke-width:2}
+.fw{fill:var(--amberbg);stroke:var(--amber);stroke-width:2.5}
+.ln{stroke:var(--mute);stroke-width:2;fill:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.card h3{font-size:1.1rem;margin-bottom:6px}
+.card p,.card ul{margin:0;color:var(--mute)}
+.card ul{padding-left:20px}
+.tag{display:inline-block;font-size:.85rem;font-weight:600;padding:1px 10px;border-radius:99px;background:var(--tealbg);color:var(--teal);margin-bottom:8px}
+.tag.red{background:var(--redbg);color:var(--red)}
+.tag.amber{background:var(--amberbg);color:var(--ink)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{text-align:left;padding:10px 16px;border-bottom:1px solid var(--line)}
+th{background:var(--tealbg);color:var(--ink);font-weight:600}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tabs button{font:inherit;font-weight:500;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.tabs button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px}
+.panel h3{font-size:1.3rem;margin-bottom:12px}
+.panel dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 20px;margin:0}
+.panel dt{color:var(--mute)}
+.panel dd{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{background:var(--tealbg);color:var(--ink);padding:1px 10px;border-radius:6px;font-size:.92rem}
+.note{background:var(--amberbg);border-left:5px solid var(--amber);padding:16px 20px;border-radius:6px}
+footer{border-top:1px solid var(--line);color:var(--mute);padding:24px 20px;text-align:center;font-size:.92rem}
+[hidden]{display:none!important}
+nav a[aria-current="page"]{background:var(--tealbg);color:var(--teal)}
+.ahp{fill:var(--mute)}
+.me2{fill:var(--redbg);stroke:var(--red);stroke-width:2.5}
+.path{list-style:none;margin:0;padding:0}
+.path li{position:relative;padding:0 0 22px 64px}
+.path li::before{content:"";position:absolute;left:21px;top:44px;bottom:0;width:3px;background:var(--line)}
+.path li:last-child::before{display:none}
+.dot{position:absolute;left:0;top:0;width:46px;height:46px;border-radius:50%;background:var(--teal);color:#fff;font-family:'Prompt',sans-serif;font-weight:700;display:grid;place-items:center}
+.path li.fw .dot{background:var(--amber);color:#14262e}
+.path li.me .dot{background:var(--red);color:#fff}
+.path li.me .card{border:2px solid var(--red);background:var(--redbg)}
+.path li.fw .card{border-color:var(--amber)}
+.stage svg{min-width:640px}
+.zn{fill:var(--bg);stroke:var(--line);stroke-width:1.5;stroke-dasharray:5 5}
+.zn.zr{fill:var(--redbg);stroke:var(--red)}
+.zt{font-size:13px;fill:var(--mute)!important}
+.lk{fill:none;stroke:var(--teal);stroke-width:4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .7s ease}
+.lk.on{stroke-dashoffset:0}
+.nd{opacity:0;transform:scale(.7);transform-box:fill-box;transform-origin:center;transition:opacity .45s,transform .45s;pointer-events:none}
+.nd.on{opacity:1;transform:none;cursor:pointer;pointer-events:auto}
+.nd.next{opacity:.55;transform:none;cursor:pointer;pointer-events:auto}
+.nd.next .nc{stroke-dasharray:6 5}
+.nd.next .lbl{opacity:0}
+.nc{fill:var(--surface);stroke:var(--teal);stroke-width:2.5}
+.nd.fwx .nc{stroke:var(--amber)}
+.nd.me .nc{stroke:var(--red)}
+.nd.cur .nc{animation:pl 1.6s ease-in-out infinite}
+@keyframes pl{50%{stroke-width:7}}
+.nd:focus-visible{outline:none}
+.nd:focus-visible .nc{stroke:var(--amber);stroke-width:6}
+.ic{stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lbl .t{font-size:14px;font-weight:600}
+.lbl .s{font-size:12px;fill:var(--mute)!important}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}
+.ctrl button{font:inherit;font-weight:600;padding:9px 18px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.ctrl .pri{background:var(--teal);border-color:var(--teal);color:var(--surface)}
+.ctrl button:disabled{opacity:.4;cursor:default}
+.ctrl button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+#pg{color:var(--mute)}
+.info h3{font-size:1.2rem}
+.info p{margin:6px 0 0;color:var(--mute)}
+.info code{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--tealbg);padding:1px 7px;border-radius:5px;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.lk,.nd{transition:none}.nd.cur .nc{animation:none}}
+</style>
 </head>
 <body>
-  <div class="sidebar-backdrop" id="sidebarBackdrop" hidden aria-hidden="true"></div>
-  <div class="app" id="app">
-    <aside class="sidebar" id="sidebar">
-      <div class="brand">
-        <button type="button" class="logo" id="sidebarLogoToggle" aria-label="ปิดเมนูด้านข้าง" aria-expanded="true" title="คลิกเพื่อปิดเมนู">
-          <i></i><i></i><i></i>
-        </button>
-        <small>เว็บไซต์นำเสนอ</small>
-        <strong>BlueHub / DPS</strong>
-      </div>
-      <nav class="nav" id="nav"></nav>
-      <div class="side-foot">
-        รายวิชา วิเคราะห์และออกแบบระบบงานธุรกิจดิจิทัล<br />
-        อาจารย์กัลยารัตน์ ขาวภา
-      </div>
-    </aside>
+<nav aria-label="เมนูหลัก">
+<a href="#overview" data-v="overview">ภาพรวม</a><a href="#research-office" data-v="office">ห้องงานส่งเสริมการวิจัยฯ</a>
+</nav>
+<main>
+<div id="view-overview">
+<header class="hero">
+<h1>ระบบเครือข่ายคอมพิวเตอร์ วิทยาลัยอาชีวศึกษาขอนแก่น</h1>
+<p>สรุปโครงสร้างเครือข่ายจากผังระบบปี 2022 และผังระบบควบคุมสัญญาณอินเทอร์เน็ต ตั้งแต่ทางออกอินเทอร์เน็ต ไฟร์วอลล์ เซิร์ฟเวอร์ ไปจนถึงจุดกระจายสัญญาณไร้สายในแต่ละอาคาร</p>
+<div class="diagram">
+<svg viewBox="0 0 760 290" role="img" aria-label="แผนภาพภาพรวมเครือข่าย: อินเทอร์เน็ตผ่าน Sophos XG330 ไปยังโซน DMZ และโซน LAN">
+<rect class="box" x="20" y="20" width="150" height="50" rx="8"/><text x="95" y="42" text-anchor="middle" font-weight="600" font-size="15">Uninet 1 Gbps</text><text x="95" y="60" text-anchor="middle" font-size="13">GW 202.29.238.158</text>
+<rect class="box" x="20" y="90" width="150" height="50" rx="8"/><text x="95" y="112" text-anchor="middle" font-weight="600" font-size="15">NT 1 Gb</text><text x="95" y="130" text-anchor="middle" font-size="13">WAN สำรอง (ผังเดิม)</text>
+<path class="ln" d="M170 45H230V115M170 115H230"/><path class="ln" d="M230 115H270"/>
+<rect class="fw" x="270" y="80" width="170" height="70" rx="10"/><text x="355" y="108" text-anchor="middle" font-weight="700" font-size="17">Sophos XG330</text><text x="355" y="130" text-anchor="middle" font-size="13">Security Gateway</text>
+<path class="ln" d="M440 100H520V50H550M520 100V210H550"/>
+<rect class="dmz" x="550" y="20" width="190" height="100" rx="10"/><text x="645" y="44" text-anchor="middle" font-weight="700" font-size="15">DMZ 192.168.200.1/24</text>
+<text x="645" y="68" text-anchor="middle" font-size="13">WWW · E-Learning · IT-host</text><text x="645" y="88" text-anchor="middle" font-size="13">RMS · DNS · Combiz</text>
+<rect class="lan" x="550" y="160" width="190" height="100" rx="10"/><text x="645" y="184" text-anchor="middle" font-weight="700" font-size="15">LAN Zone</text>
+<text x="645" y="208" text-anchor="middle" font-size="13">VLAN 1–100 · Switch Cisco</text><text x="645" y="228" text-anchor="middle" font-size="13">อาคาร 2–10 · Aruba AP</text>
+<text x="360" y="176" text-anchor="middle" font-size="13" fill="currentColor">ลิงก์หลัก 10GbE</text>
+<path class="ln" stroke-dasharray="6 4" d="M355 150V185"/>
+</svg>
+</div>
+</header>
 
-    <main class="stage">
-      <header class="topbar">
-        <div class="crumb">
-          <button type="button" class="sidebar-open-hint" id="sidebarOpenHint" hidden aria-label="เปิดเมนูด้านข้าง" title="เปิดเมนู">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <b id="pageTitle">หน้าปก</b>
-        </div>
-        <div class="topbar-actions">
-          <div class="progress" aria-hidden="true"><i id="bar"></i></div>
-          <div class="settings-menu" id="settingsMenu">
-            <button type="button" class="settings-menu__trigger" id="settingsMenuBtn" aria-label="ตั้งค่าการแสดงผล" aria-expanded="false" aria-haspopup="true" aria-controls="settingsMenuPanel" title="ตั้งค่า">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="settings-menu__panel" id="settingsMenuPanel" hidden role="menu">
-              <div class="settings-menu__section" role="none">
-                <span class="settings-menu__heading">ซูม</span>
-                <div class="zoom-controls" aria-label="การซูม">
-                  <button type="button" class="zoom-btn" id="zoomOut" aria-label="ซูมออก" title="ซูมออก">−</button>
-                  <span class="zoom-label" id="zoomLabel">100%</span>
-                  <button type="button" class="zoom-btn" id="zoomIn" aria-label="ซูมเข้า" title="ซูมเข้า">+</button>
-                  <button type="button" class="zoom-btn zoom-reset" id="zoomReset" aria-label="รีเซ็ตซูม" title="รีเซ็ตซูม">⟲</button>
-                </div>
-              </div>
-              <button type="button" class="settings-menu__item" id="fullscreenBtn" role="menuitem" aria-label="ขยายเต็มจอ" title="เต็มจอ">
-                <span class="settings-menu__item-icon" aria-hidden="true">⛶</span>
-                <span data-fs-label>เต็มจอ</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+<section id="firewall">
+<h2>Sophos XG330 ศูนย์กลางความปลอดภัย</h2>
+<p class="lead">ไฟร์วอลล์ตัวเดียวคั่นกลางระหว่างอินเทอร์เน็ต โซน DMZ และโซน LAN ภายในวิทยาลัย</p>
+<div class="grid">
+<div class="card"><h3>Stateful Firewall</h3><p>ตรวจสอบสถานะการเชื่อมต่อทุกแพ็กเก็ตก่อนอนุญาตผ่าน</p></div>
+<div class="card"><h3>ยืนยันตัวตนผู้ใช้</h3><p>ควบคุมการเข้าถึงอินเทอร์เน็ตตามผู้ใช้ที่ลงชื่อเข้าใช้</p></div>
+<div class="card"><h3>Bandwidth และ Load Balancing</h3><p>จัดสรรแบนด์วิดท์ และกระจายโหลดระหว่างช่องทางอินเทอร์เน็ต</p></div>
+<div class="card"><h3>ป้องกัน Virus และ Spam</h3><p>ตรวจจับที่ระดับ Gateway ก่อนถึงเครื่องผู้ใช้</p></div>
+<div class="card"><h3>IPS</h3><p>ป้องกันการโจมตีระบบเครือข่ายและการใช้งานที่ไม่เหมาะสม</p></div>
+<div class="card"><h3>เก็บ Log ตาม พ.ร.บ.คอมพิวเตอร์</h3><p>จัดทำรายงานบันทึกการใช้งานตามที่กฎหมายกำหนด</p></div>
+</div>
+</section>
 
-      <div class="slides" id="slides">
-        <section class="slide is-on" data-title="หน้าปก" data-fx="cover">
-          <div class="cover">
-            <div class="cover-deco" aria-hidden="true"></div>
-            <div class="kicker">รายวิชา วิเคราะห์และออกแบบระบบงานธุรกิจดิจิทัล</div>
-            <h1>BlueHub / DPS</h1>
-            <div class="sub">Distance Per Stroke</div>
-            <p class="lead">แพลตฟอร์มว่ายน้ำครบวงจร ที่ช่วยให้โค้ชอ่านผลการแข่งและคลิปวิดีโอได้เร็วขึ้น ไม่ต้องไล่หาข้อมูลจากไฟล์ Excel หลายไฟล์</p>
-            <div class="people">
-              <div class="person"><b>นายจักรพันธ์ ชินโสภา</b><span>69419100002 · หาข้อมูลและจัดทำเว็บไซต์</span></div>
-              <div class="person"><b>นางสาวชุติกานต์ หาญกุดเลาะ</b><span>69419100004 · จัดทำนำเสนอและสรุปข้อมูล</span></div>
-              <div class="person"><b>นายพลพล กำมะถัน</b><span>69419100009 · นำเสนอและตรวจสอบความผิดพลาด</span></div>
-            </div>
-            <div class="meta">อาจารย์ผู้สอน อาจารย์กัลยารัตน์ ขาวภา · ปีการศึกษา 2569</div>
-          </div>
-        </section>
+<section id="dmz">
+<h2>เซิร์ฟเวอร์ในโซน DMZ</h2>
+<p class="lead">เซิร์ฟเวอร์ให้บริการภายนอกอยู่ในเครือข่าย 192.168.200.0/24 และแปลงเป็น IP สาธารณะของวิทยาลัย</p>
+<div class="tablewrap"><table>
+<thead><tr><th>บริการ</th><th>ชื่อโดเมน</th><th>IP สาธารณะ</th><th>IP ภายใน</th></tr></thead>
+<tbody>
+<tr><td>DNS</td><td>ns1.kvc.ac.th</td><td><code>202.29.238.154</code></td><td><code>192.168.200.154</code></td></tr>
+<tr><td>Library</td><td>lib.kvc.ac.th</td><td><code>202.29.238.155</code></td><td><code>192.168.200.155</code></td></tr>
+<tr><td>WWW</td><td>www.kvc.ac.th</td><td><code>202.29.238.155</code></td><td><code>192.168.200.46</code></td></tr>
+<tr><td>QA</td><td>qa.kvc.ac.th</td><td><code>202.29.238.157</code></td><td><code>192.168.200.157</code></td></tr>
+<tr><td>LMS</td><td>lms.kvc.ac.th</td><td><code>202.29.238.156</code></td><td><code>192.168.200.47</code></td></tr>
+<tr><td>Aruba Remote Controller</td><td>—</td><td><code>61.91.109.62:4545</code></td><td><code>172.20.80.21</code></td></tr>
+</tbody></table></div>
+<p class="lead" style="margin-top:12px;font-size:.92rem">เซิร์ฟเวอร์ทั้งหมดในผัง: WWW, E-Learning, IT-host, RMS, DNS และ Combiz</p>
+</section>
 
-        <section class="slide" hidden data-title="โปรเจกต์นี้คืออะไร" data-fx="steps">
-          <div class="kicker">01 · ภาพรวม</div>
-          <h2>ถ้าพูดสั้นๆ โปรเจกต์นี้ทำอะไร</h2>
-          <p class="lead">DPS เป็นธุรกิจกีฬาว่ายน้ำในไทย งานของเราคือออกแบบระบบดิจิทัลชื่อ BlueHub ให้ข้อมูลแข่ง ปฏิทิน กราฟ และคลิปวิดีโออยู่ในที่เดียว</p>
-          <div class="grid grid-3">
-            <article class="card">
-              <div class="num">1</div>
-              <h3>เก็บผลแข่ง</h3>
-              <p>นำผลการว่ายน้ำ เวลา และช่วงเวลาแต่ละระยะ เข้าสู่ระบบจากไฟล์ CSV หรือ Google Sheets</p>
-            </article>
-            <article class="card">
-              <div class="num">2</div>
-              <h3>ทำให้เห็นภาพ</h3>
-              <p>แปลงตัวเลขเป็นกราฟจังหวะความเร็ว เพื่อเทียบนักกีฬาข้ามสโมสรหรือข้ามรายการได้</p>
-            </article>
-            <article class="card">
-              <div class="num">3</div>
-              <h3>อ่านคลิปแข่ง</h3>
-              <p>โค้ชแท็กจุดที่นักกีฬาถึงแต่ละระยะบนวิดีโอ ระบบช่วยจับเวลา และมี AI เสนอจุดเวลาให้</p>
-            </article>
-          </div>
-          <p class="note">เป้าหมายไม่ใช่ทำเว็บสวยอย่างเดียว แต่ทำให้โค้ชตัดสินใจวางแผนซ้อมได้จากข้อมูลจริง</p>
-        </section>
+<section id="vlan">
+<h2>VLAN ในโซน LAN</h2>
+<p class="lead">แบ่งเครือข่ายภายในเป็น VLAN ตามอาคาร และแยก VLAN 100 สำหรับผู้ใช้ไร้สาย</p>
+<div class="tablewrap"><table>
+<thead><tr><th>VLAN</th><th>เครือข่าย Gateway</th><th>VLAN</th><th>เครือข่าย Gateway</th></tr></thead>
+<tbody>
+<tr><td>VLAN 1</td><td><code>172.17.0.1/22</code></td><td>VLAN 60</td><td><code>172.17.60.1/22</code></td></tr>
+<tr><td>VLAN 20</td><td><code>172.17.20.1/22</code></td><td>VLAN 70</td><td><code>172.17.72.1/22</code></td></tr>
+<tr><td>VLAN 30</td><td><code>172.17.32.1/22</code></td><td>VLAN 80</td><td><code>172.17.80.1/22</code></td></tr>
+<tr><td>VLAN 40</td><td><code>172.17.40.1/22</code></td><td>VLAN 90</td><td><code>172.17.92.1/22</code></td></tr>
+<tr><td>VLAN 50</td><td><code>172.17.52.1/22</code></td><td>VLAN 100</td><td><code>172.30.0.1/16</code> (Wireless Client)</td></tr>
+</tbody></table></div>
+</section>
 
-        <section class="slide" hidden data-title="คำที่ควรรู้ก่อน" data-fx="words">
-          <div class="kicker">02 · อ่านก่อนแล้วจะเข้าใจทุกหน้า</div>
-          <h2>คำในโปรเจกต์นี้หมายความว่าอะไร</h2>
-          <p class="lead">ถ้าเจอคำภาษาอังกฤษในสไลด์ถัดไป ให้ย้อนมาหน้านี้ได้ตลอด</p>
-          <div class="grid grid-2">
-            <article class="card word"><code>DPS</code><p><b>Distance Per Stroke</b> คือระยะทางที่ได้ต่อการวาดแขน 1 ครั้ง ยิ่งไกลโดยไม่เสียจังหวะ แปลว่ายิ่งมีประสิทธิภาพ</p></article>
-            <article class="card word"><code>Split</code><p>เวลาที่ใช้ในแต่ละช่วง เช่น จาก 0–15 เมตร, 15–25 เมตร ใช้ดูว่าช่วงไหนเร็วหรือช้า</p></article>
-            <article class="card word"><code>Pacing</code><p>จังหวะความเร็วตลอดทั้งเที่ยว หากออกตัวเร็วเกินแล้วหลังบ้านช้า กราฟจะเห็นชัด</p></article>
-            <article class="card word"><code>Cumulative</code><p>เวลาสะสมตั้งแต่จุดสตาร์ต จนถึงระยะนั้น เช่น ถึง 50 เมตร ใช้เวลาเท่าไรรวมทั้งหมด</p></article>
-            <article class="card word"><code>LCM</code><p>สระยาว 50 เมตร ตามมาตรฐานสากล ต่างจากสระสั้น 25 เมตร</p></article>
-            <article class="card word"><code>AI Suggest</code><p>ระบบช่วยเดาจุดเวลาในคลิป แล้วให้โค้ชกดยอมรับหรือแก้ได้เอง</p></article>
-          </div>
-        </section>
+<section id="buildings">
+<h2>โครงข่ายแต่ละอาคาร</h2>
+<p class="lead">เลือกอาคารเพื่อดูอุปกรณ์สวิตช์และจุดกระจายสัญญาณไร้สาย (AP)</p>
+<div class="tabs" role="tablist" id="tabs"></div>
+<div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+</section>
 
-        <section class="slide" hidden data-title="ธุรกิจและปัญหา" data-fx="problems">
-          <div class="kicker">03 · ข้อ 1 ข้อมูลธุรกิจ</div>
-          <h2>ธุรกิจเป็นอย่างไร และติดปัญหาตรงไหน</h2>
-          <p class="lead">DPS ทำทั้งจัดการแข่งขัน รายงานผล วิเคราะห์นักกีฬา เอเจนซี ทุนการศึกษา สื่อ และร้านค้าสปอร์ต แต่ข้อมูลยังกระจัดกระจาย</p>
-          <div class="grid grid-2">
-            <article class="card">
-              <div class="num">01</div>
-              <h3>ข้อมูลไม่รวมศูนย์</h3>
-              <p>ผลแข่งและ split อยู่ใน Excel / CSV หลายไฟล์ ค้นหาและเทียบกันยาก</p>
-            </article>
-            <article class="card">
-              <div class="num">02</div>
-              <h3>วิเคราะห์คลิปช้า</h3>
-              <p>โค้ชยังจับเวลาจากวิดีโอด้วยมือ ใช้เวลานาน ต่างจากเครื่องมืออย่าง Mako Vision</p>
-            </article>
-            <article class="card">
-              <div class="num">03</div>
-              <h3>ระบบไม่ต่อกัน</h3>
-              <p>ปฏิทินแข่ง รายงานผล กราฟ และวิดีโออยู่คนละที่ ต้องสลับโปรแกรมตลอด</p>
-            </article>
-            <article class="card">
-              <div class="num">04</div>
-              <h3>เทียบข้ามทีมยาก</h3>
-              <p>อยากรู้ว่านักกีฬาเราเร็วกว่าสโมสรอื่นตรงไหน ยังเทียบในที่เดียวไม่ได้</p>
-            </article>
-          </div>
-        </section>
+<section id="ip">
+<h2>หลักการกำหนด IP สำหรับบริหารอุปกรณ์</h2>
+<p class="lead">รูปแบบ <code>172.20.XX.YY / 255.255.0.0</code> ใช้ XX ระบุพื้นที่ และ YY ระบุชนิดอุปกรณ์</p>
+<div class="grid">
+<div class="card"><span class="tag">YY</span><h3>ชนิดอุปกรณ์</h3><ul><li>21–29 : Access Point</li><li>3–19 : Switch</li><li>31–99 : VoIP</li></ul></div>
+<div class="card"><span class="tag">XX</span><h3>พื้นที่</h3><ul><li>20 : อาคาร 2</li><li>30 : หอประชุมแก่นธรรม</li><li>90 : อาคาร 9</li></ul></div>
+<div class="card"><span class="tag amber">ตัวอย่าง</span><h3>อ่านค่า IP</h3><p><code>172.20.90.3</code> คือ Switch ของอาคาร 9 ส่วน <code>172.20.30.3</code> คือ Switch ของหอประชุม</p></div>
+</div>
+</section>
 
-        <section class="slide" hidden data-title="ใครใช้ระบบ" data-fx="users">
-          <div class="kicker">04 · ผู้ใช้และเป้าหมาย</div>
-          <h2>ใครจะเข้ามาใช้ และเราอยากให้เขาได้อะไร</h2>
-          <p class="lead">BlueHub เป็น Digital Hub ของวงการว่ายน้ำ เปลี่ยนสถิติกับคลิปแข่งให้เป็นข้อมูลที่โค้ชใช้ตัดสินใจได้ทันที</p>
-          <div class="grid grid-3">
-            <article class="card"><h3>โค้ช</h3><p>ดูกราฟ pacing และแท็กคลิป เพื่อวางแผนซ้อม</p></article>
-            <article class="card"><h3>สโมสร</h3><p>ดูผลนักกีฬาทั้งทีมในที่เดียว</p></article>
-            <article class="card"><h3>นักกีฬา</h3><p>ทบทวนเวลาและช่วงที่ตัวเองพลาด</p></article>
-            <article class="card"><h3>ผู้จัดแข่งขัน</h3><p>ลงปฏิทินและรายงานผลการแข่ง</p></article>
-            <article class="card"><h3>ผู้ปกครอง</h3><p>ติดตามผลการแข่งของลูก</p></article>
-            <article class="card"><h3>Admin</h3><p>จัดการอีเวนต์ ผลแข่ง และสินค้า</p></article>
-          </div>
-        </section>
-
-        <section class="slide" hidden data-title="ระบบต้องทำอะไร" data-fx="table">
-          <div class="kicker">05 · ข้อ 2 Requirements</div>
-          <h2>สิ่งที่ระบบต้องมี เรียงตามความจำเป็น</h2>
-          <p class="lead"><b>Must</b> คือต้องมีในเวอร์ชันแรก · <b>Should</b> สำคัญแต่ยังรอได้ · <b>Could</b> มีก็ดี</p>
-          <table>
-            <thead><tr><th>รหัส</th><th>สิ่งที่ระบบทำ</th><th>ความสำคัญ</th></tr></thead>
-            <tbody>
-              <tr><td>R1</td><td>แสดงปฏิทินและสถานะการแข่งขัน</td><td><span class="tag must">Must</span></td></tr>
-              <tr><td>R2</td><td>รายงานผลการแข่ง พร้อมกรองข้อมูลและดู split</td><td><span class="tag must">Must</span></td></tr>
-              <tr><td>R3</td><td>นำเข้า CSV / Google Sheets แล้ววิเคราะห์ pacing</td><td><span class="tag must">Must</span></td></tr>
-              <tr><td>R4</td><td>เปรียบเทียบนักกีฬาข้ามสโมสรหรือข้ามรายการ</td><td><span class="tag must">Must</span></td></tr>
-              <tr><td>R5</td><td>แท็กเวลาที่ถึงแต่ละระยะบนวิดีโอ เช่น 15m จนถึงเส้นชัย</td><td><span class="tag must">Must</span></td></tr>
-              <tr><td>R6</td><td>AI ช่วยเสนอจุดเวลาในคลิป</td><td><span class="tag should">Should</span></td></tr>
-              <tr><td>R7</td><td>ส่งออก split เป็น CSV ไปวิเคราะห์ต่อ</td><td><span class="tag must">Must</span></td></tr>
-              <tr><td>R8</td><td>แอดมินจัดการอีเวนต์ ผลแข่ง และสินค้า</td><td><span class="tag must">Must</span></td></tr>
-              <tr><td>R9</td><td>หน้าร้านค้า เฟสแรกให้ติดต่อผ่าน Line</td><td><span class="tag could">Could</span></td></tr>
-              <tr><td>R10</td><td>หน้าเอเจนซี ทุนการศึกษา และสื่อ</td><td><span class="tag should">Should</span></td></tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section class="slide" hidden data-title="ข้อกำหนดเชิงโครงสร้าง" data-fx="split">
-          <div class="kicker">06 · ข้อ 3 Structured Requirements</div>
-          <h2>แยกงานที่ระบบทำ กับคุณภาพที่ต้องมี</h2>
-          <div class="grid grid-2">
-            <article class="card">
-              <h3>Functional = สิ่งที่ผู้ใช้กดแล้วต้องเกิด</h3>
-              <ul>
-                <li>FR-01 นำเข้าผลว่ายน้ำ</li>
-                <li>FR-02 กรองเพศ รุ่นอายุ สโมสร นักกีฬา</li>
-                <li>FR-03 แสดงกราฟ Pacing / Cumulative</li>
-                <li>FR-04 แท็กคลิปด้วยมือหรือ AI</li>
-                <li>FR-05 คำนวณ split จากจุดสตาร์ต</li>
-                <li>FR-06 แอดมินล็อกอินแล้วจัดการข้อมูล</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>Non-Functional = ใช้แล้วต้องรู้สึกอย่างไร</h3>
-              <ul>
-                <li>ใช้ผ่านเว็บได้ทุกหน้าจอ</li>
-                <li>อัปโหลดคลิปได้ประมาณ 200MB</li>
-                <li>แยกโปรแกรม AI ออกจากเว็บ ไม่ให้หน้าค้าง</li>
-                <li>รหัสผ่านแอดมินเก็บในเครื่องเซิร์ฟเวอร์</li>
-                <li>หน้าตาใช้สีน้ำเงิน–ฟ้าของแบรนด์ DPS</li>
-              </ul>
-            </article>
-          </div>
-          <article class="card accent" style="margin-top:16px">
-            <h3>ใครเกี่ยวข้องในระบบ</h3>
-            <p>โค้ช · นักกีฬาที่ดูผล · แอดมิน · และระบบ AI ที่ทำงานอยู่เบื้องหลัง โค้ชเป็นผู้ใช้หลักของหน้าวิเคราะห์วิดีโอ</p>
-          </article>
-        </section>
-
-        <section class="slide" hidden data-title="ออกแบบข้อมูล" data-fx="er">
-          <div class="kicker">07 · ข้อ 4–5 ER และฐานข้อมูล</div>
-          <h2>เก็บข้อมูลอย่างไรให้เทียบกันได้</h2>
-          <p class="lead">คิดง่ายๆ ว่า สโมสรมีนักกีฬาหลายคน แต่ละคนมีผลแข่งหลายรายการ และมีคลิปวิเคราะห์ของตัวเอง</p>
-          <div class="er">
-            <div class="entity"><header>CLUBS</header><p>สโมสร<br />id, ชื่อ</p></div>
-            <div class="entity"><header>ATHLETES</header><p>นักกีฬา<br />ชื่อ เพศ รุ่น อ้างอิงสโมสร</p></div>
-            <div class="entity"><header>EVENTS</header><p>รายการแข่ง<br />วัน สถานที่ สถานะ</p></div>
-            <div class="entity"><header>RESULTS</header><p>ผลแข่ง<br />อันดับ เวลา splits</p></div>
-            <div class="entity"><header>VIDEO_SESSIONS</header><p>คลิปที่กำลังวิเคราะห์<br />ลู่ สระ จุดสตาร์ต</p></div>
-            <div class="entity"><header>DISTANCE_MARKERS</header><p>จุดแท็กแต่ละระยะ<br />กี่เมตร วินาทีที่เท่าไร</p></div>
-            <div class="entity"><header>PRODUCTS</header><p>สินค้าในร้าน<br />ราคา หมวด รูป</p></div>
-            <div class="entity"><header>ANALYTICS</header><p>ชุดข้อมูลกราฟ<br />config และ data</p></div>
-          </div>
-          <p class="note">เฟสแรกใช้ PostgreSQL ผ่าน Drizzle ส่วนคลิปยังเก็บเป็นไฟล์ก่อน แล้วค่อยย้ายเป็นตารางจริง</p>
-        </section>
-
-        <section class="slide" hidden data-title="หน้าจอที่ออกแบบ" data-fx="wire">
-          <div class="kicker">08 · ข้อ 6 Wireframe</div>
-          <h2>หน้าวิเคราะห์วิดีโอใช้ยังไง</h2>
-          <p class="lead">ด้านซ้ายเล่นคลิป ด้านขวาแท็กระยะทีละจุด ออกแบบให้คล้ายเครื่องมือที่โค้ชคุ้น เช่น Mako Vision</p>
-          <div class="wire">
-            <article class="card">
-              <div class="player"><span class="play-dot"></span>VIDEO PLAYER</div>
-              <div class="keys">
-                <div class="key"><b>Space</b>เล่น / หยุด</div>
-                <div class="key"><b>A / D</b>ถอยหรือเดินเฟรม</div>
-                <div class="key"><b>S</b>ตั้งจุดสตาร์ต</div>
-                <div class="key"><b>Q</b>แท็กระยะปัจจุบัน</div>
-              </div>
-              <p style="margin-top:12px">มีปุ่ม AI Suggest ให้ระบบช่วยหาจุดเวลา และปุ่ม Export CSV เพื่อเอาตัวเลขไปเข้าหน้ากราฟ</p>
-            </article>
-            <article class="card">
-              <h3>นักกีฬา · LCM 100 เมตร</h3>
-              <p style="margin-bottom:12px">ความคืบหน้า 7 จาก 11 จุด</p>
-              <div class="marks">
-                <div class="mark">Start</div><div class="mark">15</div><div class="mark">25</div>
-                <div class="mark">35</div><div class="mark">45</div><div class="mark">50</div>
-                <div class="mark">65</div><div class="mark on">75 ถัดไป</div><div class="mark">85</div>
-                <div class="mark">95</div><div class="mark">Finish</div>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="slide" hidden data-title="โค้ชได้อะไร" data-fx="out">
-          <div class="kicker">09 · ข้อ 7 Output</div>
-          <h2>เมื่อใช้ระบบแล้ว เห็นอะไรกลับมา</h2>
-          <p class="lead">ไม่จบแค่เก็บข้อมูล แต่ต้องได้คำตอบที่เอาไปวางแผนซ้อมได้</p>
-          <div class="grid grid-2">
-            <article class="card"><h3>กราฟ Pacing / Cumulative</h3><p>เทียบนักกีฬาข้างๆ กัน ดูว่าใครออกตัวเร็ว ใครมาแรงช่วงท้าย</p></article>
-            <article class="card"><h3>ตารางผลแข่ง + Split</h3><p>กรองตามรุ่น สโมสร แล้วชี้แถวไหนระบบไฮไลต์ให้</p></article>
-            <article class="card"><h3>การ์ดเวลาจากคลิป</h3><p>แต่ละระยะโชว์ทั้งเวลาช่วงนั้น และเวลารวมตั้งแต่สตาร์ต</p></article>
-            <article class="card"><h3>ไฟล์ CSV และหน้าแอดมิน</h3><p>ส่งออกไปวิเคราะห์ต่อได้ และแอดมินแก้ข้อมูลหลักได้เอง</p></article>
-          </div>
-          <article class="card accent" style="margin-top:16px">
-            <h3>ตัวอย่างที่อ่านง่าย</h3>
-            <p>ถึง 15 เมตร ใช้ +5.40 วินาที · ต่อไปอีกช่วงได้เวลาของช่วงนั้น · ถึงเส้นชัยได้เวลารวมทั้งเที่ยว โค้ชจะเห็นทันทีว่าช่วงไหนเร่งได้ หรือช่วงไหนตก</p>
-          </article>
-        </section>
-
-        <section class="slide" hidden data-title="เลือกเครื่องมือ" data-fx="tools">
-          <div class="kicker">10 · ข้อ 8 ทำไมเลือกแบบนี้</div>
-          <h2>เลือกเครื่องมือที่ทำต่อได้จริง</h2>
-          <p class="lead">แกนเว็บใช้ Next.js ส่วนงานวิเคราะห์คลิปที่ยาก แยกไปให้ Python ทำ คนละโปรแกรมกัน จะได้ไม่ทำให้หน้าเว็บค้าง</p>
-          <table>
-            <thead><tr><th>ใช้</th><th>ทำอะไร</th><th>ทำไมถึงเลือก</th><th>ไม่เลือก</th></tr></thead>
-            <tbody>
-              <tr><td>Next.js 14 + TypeScript</td><td>เว็บและ API</td><td>ทำครบในที่เดียว ลงเครื่องเซิร์ฟเวอร์ง่าย</td><td>Laravel / แยกหลายภาษา</td></tr>
-              <tr><td>Tailwind CSS</td><td>หน้าตา</td><td>จัดธีมสี DPS ได้เร็ว</td><td>Bootstrap</td></tr>
-              <tr><td>Recharts</td><td>กราฟ</td><td>ใช้กับ React ได้ตรง</td><td>Chart.js</td></tr>
-              <tr><td>Drizzle + PostgreSQL</td><td>ฐานข้อมูล</td><td>กำหนดตารางแบบมีชนิดข้อมูลชัด</td><td>Prisma / MongoDB</td></tr>
-              <tr><td>Python + OpenCV</td><td>อ่านวิดีโอ</td><td>เครื่องมือวิเคราะห์ภาพพร้อมกว่า</td><td>ฝัง AI ใน Next.js</td></tr>
-              <tr><td>Render.com</td><td>วางระบบจริง</td><td>มีทั้งเว็บและฐานข้อมูล</td><td>Vercel อย่างเดียว</td></tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section class="slide" hidden data-title="วัดผลและความเป็นส่วนตัว" data-fx="safe">
-          <div class="kicker">11 · ข้อ 9–10 คุณภาพและความปลอดภัย</div>
-          <h2>รู้ได้อย่างไรว่าใช้ได้ และข้อมูลไม่รั่ว</h2>
-          <div class="grid grid-2">
-            <article class="card">
-              <h3>เกณฑ์ที่วัดได้</h3>
-              <ul>
-                <li>แท็กมือคลาดเคลื่อนไม่เกิน 0.3 วินาที</li>
-                <li>AI ถูกโค้ชยอมรับอย่างน้อยครึ่งหนึ่งในคลิปที่ชัด</li>
-                <li>แท็กครบ 100 เมตรไม่เกิน 10 นาที</li>
-                <li>หน้ากราฟโหลดไม่เกิน 3 วินาที</li>
-                <li>อัปโหลดคลิปสำเร็จอย่างน้อย 95%</li>
-                <li>แอดมินต้องมีรหัสผ่าน</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>ดูแลข้อมูลตาม PDPA</h3>
-              <ul>
-                <li>เก็บชื่อ คลิป และสโมสรเท่าที่ต้องใช้</li>
-                <li>โค้ชหรือสโมสรต้องมีสิทธิ์คลิปก่อนอัปโหลด</li>
-                <li>แยกสิทธิ์แอดมินออกจากผู้ใช้ทั่วไป</li>
-                <li>คลิปไม่ออกนอกเครื่องวิเคราะห์โดยไม่จำเป็น</li>
-                <li>ลบไฟล์เมื่อเสร็จงาน หรือครบประมาณ 90 วัน</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section class="slide" hidden data-title="ทีมงาน" data-fx="team">
-          <div class="kicker">12 · ข้อ 11 บทบาทในกลุ่ม</div>
-          <h2>ใครทำอะไร</h2>
-          <p class="lead">กลุ่ม 3 คน แบ่งงานให้ครบทั้งหาข้อมูล ทำระบบ จัดนำเสนอ และตรวจทาน</p>
-          <div class="grid grid-3">
-            <article class="card">
-              <div class="num">01</div>
-              <h3>นายจักรพันธ์ ชินโสภา</h3>
-              <p>รหัส 69419100002<br /><b>หาข้อมูลและจัดทำเว็บไซต์</b><br />ศึกษาข้อมูลระบบ DPS แล้วพัฒนาเว็บ BlueHub ทั้งหน้าใช้งานและส่วนหลังบ้าน</p>
-            </article>
-            <article class="card">
-              <div class="num">02</div>
-              <h3>นางสาวชุติกานต์ หาญกุดเลาะ</h3>
-              <p>รหัส 69419100004<br /><b>จัดทำนำเสนอและหาข้อมูล</b><br />รวบรวมข้อมูลธุรกิจ ข้อกำหนด และจัดเนื้อหาให้อาจารย์อ่านตามได้</p>
-            </article>
-            <article class="card">
-              <div class="num">03</div>
-              <h3>นายพลพล กำมะถัน</h3>
-              <p>รหัส 69419100009<br /><b>ผู้นำเสนอและตรวจสอบความผิดพลาด</b><br />นำเสนอชิ้นงาน แล้วตรวจความถูกต้องของข้อมูล ระบบ และสไลด์</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="slide" hidden data-title="แผนพัฒนา" data-fx="phase">
-          <div class="kicker">13 · ข้อ 12 ทำทีละเฟส</div>
-          <h2>ไม่ทำทุกอย่างพร้อมกัน</h2>
-          <p class="lead">ทำให้ใช้ได้ก่อน แล้วค่อยเพิ่มของยาก โดยโค้ชแก้จุดแท็กของ AI ได้เสมอ</p>
-          <div class="grid grid-4">
-            <article class="card phase"><div class="num">1</div><h3>แกนระบบ</h3><p>ปฏิทิน ผลแข่ง กราฟจาก CSV ร้านค้า และหน้าเกี่ยวกับเรา</p></article>
-            <article class="card phase"><div class="num">1.5</div><h3>ข้อมูลจริง</h3><p>ฐานข้อมูล หน้าแอดมิน และการชำระเงิน</p></article>
-            <article class="card phase"><div class="num">2</div><h3>วิเคราะห์คลิป</h3><p>แท็กด้วยมือและ AI มีหน้าแล้วที่ /analytics/video</p></article>
-            <article class="card phase"><div class="num">2.5</div><h3>ขยายต่อ</h3><p>นับจังหวะแขน ดูหลายลู่พร้อมกัน และใช้เครื่องที่แรงขึ้น</p></article>
-          </div>
-        </section>
-
-        <section class="slide" hidden data-title="สรุป" data-fx="sum">
-          <div class="kicker">14 · สรุปให้จำง่าย</div>
-          <h2>จำ 4 ประโยคนี้ก็เล่าโปรเจกต์ได้</h2>
-          <div class="grid grid-2">
-            <article class="card"><div class="num">1</div><h3>ปัญหา</h3><p>ข้อมูลแข่งกระจัดกระจาย ดูคลิปช้า และไม่มีระบบที่ต่อกันตั้งแต่ปฏิทินถึงวิดีโอ</p></article>
-            <article class="card"><div class="num">2</div><h3>ทางแก้</h3><p>BlueHub รวมผลแข่ง กราฟ คลิป และหน้าแอดมินไว้ในที่เดียว</p></article>
-            <article class="card"><div class="num">3</div><h3>วิธีทำงาน</h3><p>เว็บทำหน้าที่โชว์และเก็บข้อมูล ส่วน AI แยกไปอ่านคลิป โค้ชยังแก้จุดแท็กได้เอง</p></article>
-            <article class="card"><div class="num">4</div><h3>ผลที่อยากได้</h3><p>โค้ชใช้เวลาน้อยลงในการวิเคราะห์ และเอาข้อมูลระยะ × เวลาไปวางแผนซ้อมได้จริง</p></article>
-          </div>
-        </section>
-
-        <section class="slide" hidden data-title="ขอบคุณ" data-fx="thanks">
-          <div class="cover">
-            <div class="cover-deco" aria-hidden="true"></div>
-            <div class="kicker">จบการนำเสนอ</div>
-            <h1>ขอบคุณค่ะ / ครับ</h1>
-            <p class="lead">พร้อมรับคำถามจากอาจารย์กัลยารัตน์ ขาวภา</p>
-            <div class="people">
-              <div class="person"><b>จักรพันธ์ ชินโสภา</b><span>69419100002</span></div>
-              <div class="person"><b>ชุติกานต์ หาญกุดเลาะ</b><span>69419100004</span></div>
-              <div class="person"><b>พลพล กำมะถัน</b><span>69419100009</span></div>
-            </div>
-            <div class="meta">BlueHub / DPS · วิเคราะห์และออกแบบระบบงานธุรกิจดิจิทัล</div>
-          </div>
-        </section>
-      </div>
-
-      <footer class="controls">
-        <div class="hint">ลูกศรเปลี่ยนหน้า · Ctrl + / − ซูม · F เต็มจอ · <span id="pageNum">1 / 16</span></div>
-        <div class="nav-btns">
-          <button type="button" id="prevBtn">ย้อนกลับ</button>
-          <button type="button" class="primary" id="nextBtn">หน้าถัดไป</button>
-        </div>
-      </footer>
-    </main>
-  </div>
-  <script src="app.js?v=7"></script>
+<section id="rms">
+<h2>ผังควบคุมสัญญาณอินเทอร์เน็ตกับระบบ RMS</h2>
+<p class="lead">ผังฉบับก่อนหน้านี้เชื่อมการใช้อินเทอร์เน็ตกับทะเบียนนักเรียน นักศึกษา</p>
+<div class="grid">
+<div class="card"><span class="tag red">Server</span><h3>RMS 2012</h3><p>เซิร์ฟเวอร์ระบบบริการจัดการงานการศึกษา เก็บข้อมูลกลางของงานการศึกษาและข้อมูลส่วนบุคคลของนักเรียน นักศึกษา</p></div>
+<div class="card"><span class="tag">Login</span><h3>ยืนยันตัวตนด้วย Radius</h3><p>ระบบเครือข่ายใช้ฐานข้อมูลจาก RMS ผ่าน Radius เพื่อให้ผู้ใช้ลงชื่อเข้าใช้อินเทอร์เน็ต</p></div>
+<div class="card"><span class="tag amber">เจ้าหน้าที่</span><h3>งานทะเบียนและงานบุคลากร</h3><p>งานทะเบียนบันทึกข้อมูลนักเรียน นักศึกษา ส่วนงานบุคลากรนำเข้าข้อมูลบุคลากรในสถานศึกษา ทั้งสองเข้าสู่ระบบ RMS 2012</p></div>
+</div>
+<p class="note" style="margin-top:16px">นักเรียน นักศึกษาใช้อินเทอร์เน็ตได้ทันที หลังจากงานทะเบียนบันทึกข้อมูลส่วนบุคคลเข้าสู่ระบบ RMS</p>
+</section>
+</div>
+<div id="view-office" hidden>
+<section class="hero">
+<h1>ผังเครือข่ายของห้องงานส่งเสริมการวิจัย นวัตกรรม และสิ่งประดิษฐ์</h1>
+<p>ฝ่ายยุทธศาสตร์และแผนงาน ห้องตั้งอยู่ระหว่างอาคาร 6 และหอประชุมแก่นธรรม คลิกวงกลมที่เป็นเส้นประเพื่อเปิดจุดถัดไปของเส้นทางอินเทอร์เน็ต ทีละจุดจนถึงห้อง</p>
+<div class="diagram stage"><svg id="flow" viewBox="0 0 720 400" role="group" aria-label="ผังเส้นทางอินเทอร์เน็ตแบบคลิกทีละจุด"></svg></div>
+<div class="ctrl"><button id="bk" type="button">ย้อนกลับ</button><button id="nx" type="button" class="pri">เริ่มดูเส้นทาง</button><button id="rs" type="button">เริ่มใหม่</button><span id="pg"></span></div>
+<div class="card info" id="info" aria-live="polite"></div>
+<p class="note" style="margin-top:16px">ข้อมูลจากผังระบบเครือข่ายปี 2022</p>
+</section>
+</div>
+</main>
+<footer>จัดทำจากผังระบบเครือข่าย วิทยาลัยอาชีวศึกษาขอนแก่น ปี 2022 · ค่าบางรายการอ่านจากภาพผัง ควรตรวจสอบกับอุปกรณ์จริงก่อนนำไปใช้</footer>
+<script>
+const B=[
+{n:"อาคาร 2",sw:"Cisco 2960X, SG350-10, SG200 (ART)",ip:"172.20.20.x",ap:["AP21","AP22","AP23","AP24"]},
+{n:"อาคาร 4",sw:"Cisco 2960X, SG350-10, SF100-48 (435), SG200 (431)",ip:"172.20.40.3/16",ap:["AP41","AP42","AP43","AP44","AP45 (ห้องปาร์ม)"]},
+{n:"อาคาร 5",sw:"SG200, SG350-10",ip:"172.20.50.3/16",ap:["AP51","AP52 (ด้านหลัง)"],x:"IP ของ AP: 172.19.5.11–14/16 · Gateway 172.19.0.1"},
+{n:"อาคาร 6",sw:"Cisco 2960X, SG350-10, SG200 (SALL), CE500 (Meeting)",ip:"172.20.60.3/16",ap:["AP61","AP62","AP63"]},
+{n:"อาคาร 7",sw:"Cisco 2960X, SG350-10, SG200 (721)",ip:"172.20.70.3/16",ap:["AP71","AP72","AP78 (หน้าระเบียง)"]},
+{n:"อาคาร 8",sw:"Cisco 2960X, SG350-10, SG200 (724)",ip:"172.20.80.3/16",ap:["AP81","AP82"],x:"Aruba Controller ติดตั้งในอาคารนี้ (172.20.80.21)"},
+{n:"อาคาร 9",sw:"SG350-10",ip:"172.20.90.3–4/16",ap:["AP91","AP92","AP93","AP94","AP95","AP96","AP97","AP98"]},
+{n:"หอประชุมแก่นธรรม",sw:"SG350-10",ip:"172.20.30.3/16",ap:["AP31","AP32","AP33","AP34"]},
+{n:"อาคาร 10",sw:"Cisco 2960L",ip:"เชื่อมด้วย Fiber Optic 6 Core outdoor",ap:["AP11","AP12","AP13","AP14"],x:"ห้อง 10-01 ถึง 10-23 เดินสาย UTP CAT6"}
+];
+const tabs=document.getElementById('tabs'),panel=document.getElementById('panel');
+function show(i){
+ [...tabs.children].forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+ const d=B[i];
+ panel.innerHTML='<h3>'+d.n+'</h3><dl><dt>สวิตช์</dt><dd>'+d.sw+'</dd><dt>IP / การเชื่อมต่อ</dt><dd><code>'+d.ip+'</code></dd><dt>จุดกระจายสัญญาณ ('+d.ap.length+')</dt><dd class="chips">'+d.ap.map(a=>'<span>'+a+'</span>').join('')+'</dd>'+(d.x?'<dt>หมายเหตุ</dt><dd>'+d.x+'</dd>':'')+'</dl>';
+}
+B.forEach((d,i)=>{const b=document.createElement('button');b.type='button';b.role='tab';b.textContent=d.n;b.onclick=()=>show(i);tabs.appendChild(b)});
+show(0);
+function route(){
+ const o=location.hash==='#research-office';
+ document.getElementById('view-overview').hidden=o;
+ document.getElementById('view-office').hidden=!o;
+ document.querySelectorAll('nav a').forEach(a=>{if((a.dataset.v==='office')===o)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+ window.scrollTo(0,0);
+}
+addEventListener('hashchange',route);route();
+(function(){
+const N=[
+{x:90,y:105,i:'cloud',t:'UniNet',s:'ผู้ให้บริการ 1 Gbps',h:'1. รับอินเทอร์เน็ตจาก UniNet',d:'วิทยาลัยรับสัญญาณจากเครือข่ายสถาบันการศึกษา UniNet ความเร็ว <code>1 Gbps</code> ผังเดิมก่อนปี 2022 มี NT 1 Gb เป็นอีกช่องทางหนึ่ง'},
+{x:270,y:105,i:'router',t:'Router WAN',s:'GW 202.29.238.158',h:'2. Router โซน WAN',d:'รับสัญญาณเข้าที่ Gateway <code>202.29.238.158</code> วิทยาลัยใช้ IP สาธารณะช่วง <code>202.29.238.153/29</code>'},
+{x:450,y:105,i:'fw',c:'fwx',t:'Sophos XG330',s:'ไฟร์วอลล์กลาง',h:'3. Sophos XG330',d:'ไฟร์วอลล์กลางตรวจสอบทราฟฟิกทั้งหมด ได้แก่ Stateful Firewall, จัดการ Bandwidth, ป้องกัน Virus/Spam, IPS และเก็บ Log ตาม พ.ร.บ.คอมพิวเตอร์ แล้วแยกเป็นโซน DMZ กับโซน LAN'},
+{x:630,y:105,i:'sw',t:'สวิตช์กลาง',s:'โซน LAN · 10GbE',h:'4. สวิตช์กลางโซน LAN',d:'ไฟร์วอลล์ต่อมาที่สวิตช์กลางด้วยลิงก์ <code>10GbE</code> แล้วกระจายสายไฟเบอร์ไปยังแต่ละอาคาร'},
+{x:630,y:305,i:'sw',t:'Cisco 2960X',s:'อาคาร 6',h:'5. Cisco 2960X อาคาร 6',d:'สวิตช์ประจำอาคาร 6 รับสัญญาณจากสวิตช์กลาง'},
+{x:450,y:305,i:'sw',t:'SG350-10',s:'อาคาร 6 · 172.20.60.3',h:'6. SG350-10 อาคาร 6',d:'IP จัดการ <code>172.20.60.3/16</code> ต่อกับ AP61–AP63, SG200 (SALL) และ CE500 (Meeting)'},
+{x:180,y:305,i:'pc',c:'me',t:'อุปกรณ์ในห้อง',s:'คอมพิวเตอร์ งานวิจัย',h:'7. อุปกรณ์ใช้งานในห้องงานส่งเสริมการวิจัยฯ',d:'ห้องอยู่ระหว่างอาคาร 6 และหอประชุมแก่นธรรม คอมพิวเตอร์และอุปกรณ์ของงานส่งเสริมการวิจัย นวัตกรรม และสิ่งประดิษฐ์ รับอินเทอร์เน็ตต่อจากสวิตช์ SG350-10 ของอาคาร 6 ซึ่งเป็นปลายทางของเส้นทาง'}];
+const Z=[[30,20,'ผู้ให้บริการและ WAN',''],[390,20,'ศูนย์กลาง โซน LAN',''],[390,220,'อาคาร 6',''],[30,220,'ห้องงานส่งเสริมการวิจัยฯ','zr']];
+const IC={cloud:'<path d="M12 28h18a7 7 0 0 0 .8-13.9A9 9 0 0 0 13.5 14 7 7 0 0 0 12 28z"/>',router:'<rect x="5" y="22" width="30" height="10" rx="2"/><path d="M12 27h.1M18 27h.1M14 22l-4-10M26 22l4-10"/>',fw:'<rect x="5" y="8" width="30" height="24" rx="2"/><path d="M5 16h30M5 24h30M15 8v8M25 16v8M15 24v8"/>',sw:'<rect x="4" y="14" width="32" height="12" rx="2"/><path d="M10 20h.1M16 20h.1M22 20h.1M28 20h.1"/>',pc:'<rect x="6" y="8" width="28" height="18" rx="2"/><path d="M15 33h10M20 26v7"/>'};
+let h='<defs>'+Object.keys(IC).map(k=>'<symbol id="i-'+k+'" viewBox="0 0 40 40">'+IC[k]+'</symbol>').join('')+'</defs>';
+h+=Z.map(z=>'<rect class="zn '+z[3]+'" x="'+z[0]+'" y="'+z[1]+'" width="300" height="175" rx="12"/><text class="zt" x="'+(z[0]+14)+'" y="'+(z[1]+24)+'">'+z[2]+'</text>').join('');
+for(let k=1;k<N.length;k++){const a=N[k-1],b=N[k];let d;
+ if(a.y===b.y){const r=b.x>a.x?1:-1;d='M'+(a.x+36*r)+' '+a.y+'H'+(b.x-36*r)}else d='M'+a.x+' '+(a.y+36)+'V'+(b.y-36);
+ h+='<path class="lk" pathLength="1" data-l="'+k+'" d="'+d+'"/>'}
+h+=N.map((n,k)=>'<g class="nd '+(n.c||'')+'" data-i="'+k+'" tabindex="0" role="button" aria-label="'+n.t+'"><circle class="nc" cx="'+n.x+'" cy="'+n.y+'" r="36"/><use class="ic" href="#i-'+n.i+'" x="'+(n.x-20)+'" y="'+(n.y-20)+'" width="40" height="40"/><g class="lbl"><text class="t" x="'+n.x+'" y="'+(n.y+58)+'" text-anchor="middle">'+n.t+'</text><text class="s" x="'+n.x+'" y="'+(n.y+76)+'" text-anchor="middle">'+n.s+'</text></g></g>').join('');
+const svg=document.getElementById('flow');svg.innerHTML=h;
+const nx=document.getElementById('nx'),bk=document.getElementById('bk'),info=document.getElementById('info'),pg=document.getElementById('pg');
+let s=0,sel=-1;
+function up(){
+ svg.querySelectorAll('.nd').forEach((g,k)=>{g.classList.toggle('on',k<s);g.classList.toggle('next',k===s);g.classList.toggle('cur',k===s-1)});
+ svg.querySelectorAll('.lk').forEach(l=>l.classList.toggle('on',+l.dataset.l<s));
+ nx.textContent=s===0?'เริ่มดูเส้นทาง':'จุดถัดไป';nx.disabled=s>=N.length;bk.disabled=s===0;
+ pg.textContent='เปิดแล้ว '+s+' จาก '+N.length+' จุด';
+ info.innerHTML=sel<0?'<h3>เส้นทางอินเทอร์เน็ตถึงห้องงานส่งเสริมการวิจัยฯ</h3><p>กดปุ่ม "เริ่มดูเส้นทาง" หรือคลิกวงกลมเส้นประในผัง เพื่อเปิดจุดแรก</p>':'<h3>'+N[sel].h+'</h3><p>'+N[sel].d+'</p>';
+}
+function go(){if(s<N.length){s++;sel=s-1;up()}}
+nx.onclick=go;
+bk.onclick=()=>{if(s>0){s--;sel=s-1;up()}};
+document.getElementById('rs').onclick=()=>{s=0;sel=-1;up()};
+function pick(g){const i=+g.dataset.i;if(i===s)go();else if(i<s){sel=i;up()}}
+svg.addEventListener('click',e=>{const g=e.target.closest('.nd');if(g)pick(g)});
+svg.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const g=e.target.closest('.nd');if(g){e.preventDefault();pick(g)}}});
+up();
+})();
+</script>
 </body>
 </html>
